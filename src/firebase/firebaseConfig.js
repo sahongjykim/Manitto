@@ -1,4 +1,3 @@
-<script>
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
@@ -28,4 +27,3 @@ export { firestore };
 
 // apikey 내보내기
 export const apiKey = firebaseConfig.apiKey;
-</script>
