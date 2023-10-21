@@ -1,24 +1,7 @@
 # manito
 
-## Project setup
-```
-npm install
-```
+## install
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- firebase 설치 필요.
+  `npm install firebase`
+- 최상위에 .env파일 생성 후 firebase관련 키 입력.
