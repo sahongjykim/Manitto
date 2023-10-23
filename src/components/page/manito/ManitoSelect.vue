@@ -95,8 +95,13 @@ export default {
       this.status = false;
     },
     removeSpaces() {
+      // 공백 제거
       this.inputName = this.inputName.replace(/\s/g, "");
+      // 특수 문자 제거
+      this.inputName = this.inputName.replace(/[!@#$%^&*()_\-.,?~]/g, "");
     },
+    // TODO :: www.manitoSelect.참여자이름/마니또대상이름 나오면 링크에서 뽀록나니까 마니또 대상이름은 index넘버로 변경해야함
+    // 아니면참여자 이름만 링크로줘도될듯?
     async copyManitoLink(player, manito) {
       const url = `http://localhost:8080/manitoSelect/${player}/${manito}`;
       try {
