@@ -5,17 +5,18 @@
     type="text"
     placeholder="마니또 참여자 이름을 입력해주세요"
     maxlength="10"
+    :disabled="status"
   />
-  <button @click="registManito">등록</button>
+  <button @click="registManito" :disabled="status">등록</button>
   <div>
     ------------
-    <button @click="drawManito">마니또뽑기</button>
+    <button @click="drawManito" :disabled="status">마니또뽑기</button>
     ------------
   </div>
   <h1>참여자 ({{ player.length > 0 ? player.length : "0" }})</h1>
   <div v-for="(playerName, index) in player" :key="index">
     -> {{ playerName }}
-    <button @click="removePlayer(index)">X</button>
+    <button @click="removePlayer(index)" :disabled="status">X</button>
   </div>
 
   <div v-if="status">
