@@ -1,8 +1,10 @@
 <template>
   <input
     v-model="inputName"
+    @input="removeSpaces"
     type="text"
     placeholder="마니또 참여자 이름을 입력해주세요"
+    maxlength="10"
   />
   <button @click="registManito">등록</button>
   <div>
@@ -18,8 +20,11 @@
 
   <div v-if="status">
     <h1>마니또 결과!!</h1>
-    <div v-for="(manito, player) in manitoResult" :key="player">
-      <span>{{ player }}의 마니또 : {{ manito }} </span>
+    <div class="row" v-for="(manito, player) in manitoResult" :key="player">
+      <span @click="copyManitoLink(player, manito)"
+        >{{ player }}의 마니또 : {{ manito }} (결과공유 click)
+      </span>
+      <!-- 마니또 결과를 링크로 만들어서 복사 http://localhost:8080/manitoSelect/player/manito -->
     </div>
     <div>
       ------------
@@ -42,6 +47,14 @@ export default {
   },
   methods: {
     registManito() {
+      if (this.inputName.trim() === "") {
+        alert("이름을 입력해주세요");
+        return;
+      }
+      if (this.player.includes(this.inputName)) {
+        alert("중복된 이름이 있습니다");
+        return;
+      }
       if (!this.player.includes(this.inputName)) {
         this.player.push(this.inputName);
         this.inputName = "";
@@ -76,9 +89,22 @@ export default {
     },
     resetGame() {
       this.inputName = "";
-      this.player = {};
-      this.manitoResult = []; // participants 배열 초기화
+      this.player = [];
+      this.manitoResult = {};
       this.status = false;
+    },
+    removeSpaces() {
+      this.inputName = this.inputName.replace(/\s/g, "");
+    },
+    async copyManitoLink(player, manito) {
+      const url = `http://localhost:8080/manitoSelect/${player}/${manito}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        alert("링크가 클립보드에 복사되었습니다!");
+      } catch (err) {
+        console.error("클립보드에 복사하는데 실패했습니다", err);
+        alert("클립보드에 복사하는데 실패했습니다");
+      }
     },
   },
 };
@@ -90,5 +116,16 @@ input {
 }
 button {
   margin-bottom: 20px;
+}
+.row {
+}
+.row {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.row:hover {
+  background-color: #eee8c8; /* 원하는 색상으로 변경 */
+  color: #1e89a9;
 }
 </style>
