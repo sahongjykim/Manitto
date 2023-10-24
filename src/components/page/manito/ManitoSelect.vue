@@ -2,6 +2,7 @@
   <input
     v-model="inputName"
     @input="removeSpaces"
+    @keyup.enter="registManito"
     type="text"
     placeholder="마니또 참여자 이름을 입력해주세요"
     maxlength="10"
@@ -63,7 +64,7 @@ export default {
       }
     },
     removePlayer(index) {
-      this.player.splice(index, 1);
+        this.player.splice(index, 1);
     },
     drawManito() {
       if (this.player.length < 2) {
@@ -85,7 +86,7 @@ export default {
         let selectedManito = availableManitos[randomIndex];
         result[player] = selectedManito;
         manito = manito.filter((name) => name !== selectedManito);
-      });
+              });
       return result;
     },
     resetGame() {
@@ -101,8 +102,12 @@ export default {
       this.inputName = this.inputName.replace(/[!@#$%^&*()_\-.,?~]/g, "");
     },
     // TODO :: www.manitoSelect.참여자이름/마니또대상이름 나오면 링크에서 뽀록나니까 마니또 대상이름은 index넘버로 변경해야함
+    // TODO :: idex로 하려면 [{player: '', manito: ''}, {player: '', manito: ''} ] 형태여야함. 
+    // -> indexOf 혹은 findIndex 배열함수를 통해 index 찾아서 쿼리파라미터 끝에 삽입.
+    // TODO :: player만 들어간다면 상관없음.
     // 아니면참여자 이름만 링크로줘도될듯?
     async copyManitoLink(player, manito) {
+      // const inx = this.manitoResult.indexOf(manito);
       const url = `http://localhost:8080/manitoSelect/${player}/${manito}`;
       try {
         await navigator.clipboard.writeText(url);
