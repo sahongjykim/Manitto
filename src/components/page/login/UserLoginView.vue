@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <kakao-login></kakao-login>
-    </div>
+  <div>
+    <kakao-login></kakao-login>
+  </div>
 </template>
 
 <script>
-import KakaoLogin from "../../global/login/KakaoLogin.vue"
+import KakaoLogin from "../../global/login/KakaoLogin.vue";
 export default {
-    name: "UserLoginView",
-    components: {
-        KakaoLogin
-    }
-}
+  name: "UserLoginView",
+  components: {
+    KakaoLogin,
+  },
+};
 </script>
