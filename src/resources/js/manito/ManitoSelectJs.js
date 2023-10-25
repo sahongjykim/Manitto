@@ -39,7 +39,7 @@ export default {
       }
     },
     // 마니또 생성 로직.
-    // TODO::result형태 => [{name: "김씨"}, {name: "왕씨"}, {name: "양씨"}]
+    // TODO::result형태 => [{player: "김씨", manito: "왕씨"}, {player: "왕씨", manito: "양씨"}, {player: "양씨", manito: "김씨"}]
     drawManitoGoGo(names) {
       let players = [...names];
       let manitos = [...names];
@@ -49,7 +49,6 @@ export default {
         let availableManitos = manitos.filter(
           (manito) => manito.player !== player.player
         );
-        console.log(availableManitos);
         let randomIndex = Math.floor(Math.random() * availableManitos.length);
         let selectedManito = availableManitos[randomIndex].player;
 

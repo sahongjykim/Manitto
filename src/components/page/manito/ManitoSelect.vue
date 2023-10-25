@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { ManitoSelectJs } from "@/resources/js/manito";
+import { ManitoSelectJs } from "@/resources/js";
 export default ManitoSelectJs;
 </script>
 
