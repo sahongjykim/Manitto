@@ -2,7 +2,7 @@
   <input
     v-model="inputName"
     @input="removeSpaces"
-    @keyup.enter.prevent="registPlayer"
+    @keyup.enter="registPlayer"
     type="text"
     placeholder="마니또 참여자 이름을 입력해주세요"
     maxlength="10"
