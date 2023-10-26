@@ -11,7 +11,7 @@
   <button @click="registPlayer" :disabled="status">등록</button>
   <div>
     ------------
-    <button @click="drawManito" :disabled="status">마니또뽑기</button>
+    <button @click="drawManito" :disabled="status">마니또뽑기DD</button>
     ------------
   </div>
   <h1>참여자 ({{ players.length > 0 ? players.length : "0" }})</h1>
