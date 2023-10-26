@@ -8,6 +8,7 @@
         <div v-if="isLogin">
             <img :src="profileImgUrl" alt="profileImg" width="100" height="100"/>
             <p>{{ nickname }}님 안녕하세요.</p>
+            <router-link to="/manitoSelect">마니또 뽑기</router-link>
             <button @click="fnKakaoLogout">
                로그아웃
             </button> 

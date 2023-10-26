@@ -138,6 +138,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import UserLoginView from "../../components/page/login/UserLoginView.vue";
 import MainView from "../../components/page/main/MainView.vue";
+import ManitoSelect from "../../components/page/manito/ManitoSelect.vue";
 
 const routes = [
   {
@@ -151,6 +152,10 @@ const routes = [
   {
     path: "/userLogin",
     component: UserLoginView,
+  },
+  {
+    path: "/manitoSelect",
+    component: ManitoSelect,
   },
 ];
 
