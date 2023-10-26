@@ -8,7 +8,7 @@
     maxlength="10"
     :disabled="status"
   />
-  <button @click="registPlayer" :disabled="status">등록DD</button>
+  <button @click="registPlayer" :disabled="status">등록DDdd</button>
   <div>
     ------------
     <button @click="drawManito" :disabled="status">마니또뽑기DDffll</button>
