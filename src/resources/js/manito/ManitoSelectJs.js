@@ -34,7 +34,7 @@ export default {
         return;
       } else {
         this.manitoResult = this.drawManitoGoGo(this.players);
-        console.log("개발자만 아는 결과dd:", this.manitoResult);
+        console.log("개발자만 아는 결과dddd:", this.manitoResult);
         this.status = true;
       }
     },
