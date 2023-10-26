@@ -8,10 +8,10 @@
     maxlength="10"
     :disabled="status"
   />
-  <button @click="registPlayer" :disabled="status">등록DDdd</button>
+  <button @click="registPlayer" :disabled="status">등록</button>
   <div>
     ------------
-    <button @click="drawManito" :disabled="status">마니또뽑기DDffll</button>
+    <button @click="drawManito" :disabled="status">마니또뽑기</button>
     ------------
   </div>
   <h1>참여자 ({{ players.length > 0 ? players.length : "0" }})</h1>
