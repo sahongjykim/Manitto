@@ -12,7 +12,7 @@ export default {
     // 플레이어 등록
     registPlayer() {
       if (this.inputName.trim() === "") {
-        alert("이름을 입력해주세요");
+        alert("이름을 입력해주세ddd요");
       } else if (this.players.includes(this.inputName)) {
         alert("중복된 이름이 있습니다.");
       } else if (!this.players.includes(this.inputName)) {
