@@ -87,7 +87,7 @@ export default {
     async copyManitoLink(player, manito) {
       const idx =
         this.manitoResult.findIndex((item) => item.manito === manito) + 1;
-      const url = `http://localhost:8080/manitoSelect/${player}/${idx}`;
+      const url = `https://your-manito.vercel.app/manitoSelect/${player}/${idx}`;
       try {
         await navigator.clipboard.writeText(url);
         alert("링크가 클립보드에 복사되었습니다!");
