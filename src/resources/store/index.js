@@ -34,29 +34,25 @@ export const store = createStore({
   // 직접 상태 변경 x, 로직 수행 및 결과에 따른 mutations를 호출함.
   // API 호출과 같은 비동기 작업이나, 여러 개의 mutation을 연속적으로 커밋(commit)할 때 사용
   actions: {
-    login() {
+    login({ dispatch }) {
       window.Kakao.Auth.login({
         scope: "profile_nickname, profile_image",
-        success: this.dispatch("setUserInfo"), // setUserInfo action 호출
+        success: () => {
+          dispatch("setUserInfo"); // setUserInfo action 호출
+        },
       });
-      this.dispatch("getUserInfo"); // getUserInfo action 호출
+      dispatch("getUserInfo"); // getUserInfo action 호출
     },
     setUserInfo() {
       window.Kakao.API.request({
         url: "/v2/user/me",
         success: (res) => {
           const kakao_account = res.kakao_account;
-          // const nickname = kakao_account.profile.nickname;
-          // const profileImgUrl = kakao_account.profile.profile_image_url;
-          // localStorage.setItem("nickName", nickname);
-          // localStorage.setItem("profileImgUrl", profileImgUrl);
+          const nickname = kakao_account.profile.nickname;
+          const profileImgUrl = kakao_account.profile.profile_image_url;
 
-          const usrInfo = {
-            nickName: kakao_account.profile.nickname,
-            profileImgUrl: kakao_account.profile.profile_image_url,
-          };
-
-          localStorage.setItem("usrInfo", usrInfo);
+          localStorage.setItem("nickname", nickname);
+          localStorage.setItem("profileImgUrl", profileImgUrl);
           localStorage.setItem("isLogin", true);
         },
         fail: (error) => {
@@ -64,14 +60,36 @@ export const store = createStore({
         },
       });
     },
-    getUserInfo() {
-      const usrInfo = localStorage.getItem("usrInfo");
-      this.commit("loginSuccess", usrInfo);
+    getUserInfo({ commit }) {
+      const usrInfo = {
+        nickName: localStorage.getItem("nickname"),
+        profileImgUrl: localStorage.getItem("profileImgUrl"),
+      };
+      commit("loginSuccess", usrInfo);
     },
-    logout() {
+    logout({ commit }) {
+      // console.log(window.Kakao.Auth.getAccessToken());
       window.Kakao.Auth.logout(() => {
-        this.commit("logoutSuccess");
+        commit("logoutSuccess");
+        // localStorage.clear();
+        localStorage.setItem("nickname", "");
+        localStorage.setItem("profileImgUrl", "");
+        localStorage.setItem("isLogin", false);
       });
+      // window.Kakao.Auth.logout()
+      //   .then(function () {
+      //     alert(
+      //       "logout ok\naccess token -> " + window.Kakao.Auth.getAccessToken()
+      //     );
+      //     commit("logoutSuccess");
+      //     // localStorage.clear();
+      //     localStorage.setItem("nickname", "");
+      //     localStorage.setItem("profileImgUrl", "");
+      //     localStorage.setItem("isLogin", false);
+      //   })
+      //   .catch(function () {
+      //     alert("Not logged in");
+      //   });
     },
   },
 });

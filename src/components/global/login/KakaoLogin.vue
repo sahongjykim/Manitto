@@ -6,8 +6,8 @@
             </button> 
         </div>
         <div v-if="isLogin">
-            <img :src="profileImgUrl" alt="profileImg" width="100" height="100"/>
-            <p>{{ nickname }}님 안녕하세요.</p>
+            <img :src="usrInfo.profileImgUrl" alt="profileImg" width="100" height="100"/>
+            <p>{{ usrInfo.nickName }}님 안녕하세요.</p>
             <router-link to="/manitoSelect">마니또 뽑기</router-link>
             <button @click="fnKakaoLogout">
                로그아웃
@@ -17,48 +17,24 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
     name: "KakaoLogin",
     data: () => ({
-        isLogin: false,
-        nickname: '',
-        profileImgUrl: ''
-        
     }),
     methods: {
-        // fnKakaoLogin() {
-        //     // window.Kakao.init("32c148d16c25b3ee3fa4bf5641ae39a9");
-        //     // console.log("카카오APIinit", window.Kakao.isInitialized());
-        //     window.Kakao.Auth.login({
-        //     scope: "profile_nickname, profile_image",
-        //     success: this.getKakaoAccount,
-        // });
-        // },
-        // getKakaoAccount() {
-        //     window.Kakao.API.request({
-        //         url: "/v2/user/me",
-        //         success: (res) => {
-        //         const kakao_account = res.kakao_account;
-        //         this.nickname = kakao_account.profile.nickname;
-        //         this.profileImgUrl = kakao_account.profile.profile_image_url;
-        //         // const email = kakao_account.email;
-        //         // console.log("email", email);
-
-        //         //로그인처리구현
-        //         alert("로그인 성공!");
-        //         this.isLogin = true;
-        //         },
-        //         fail: (error) => {
-        //         console.log(error);
-        //         },
-        //     });
-        // },
-        // fnKakaoLogout() {
-        //     window.Kakao.Auth.logout((res) => {
-        //     console.log(res);
-        //     this.isLogin = false;
-        // });
-        // },  
+        // store에서 mapActions으로 불러야함.
+        ...mapActions(['login', 'logout']),
+        fnKakaoLogin() {
+            this.login();
+        },
+        fnKakaoLogout() {
+            this.logout();
+        },  
+    },
+    computed: {
+    ...mapState(['isLogin', 'usrInfo']) 
     }
 }
 </script>
