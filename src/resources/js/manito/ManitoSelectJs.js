@@ -34,9 +34,10 @@ export default {
       } else {
         this.manitoResult = this.drawManitoGoGo(this.player);
         this.status = true;
-        console.log(this.manitoResult);
+        this.saveManitoResult(); // TODO :: 마니또 결과를 로컬 스토리지에 저장 -> vuex 셋팅끝나면 거기로
       }
     },
+    // 마니또 생성 로직.
     drawManitoGoGo(names) {
       let player = names;
       let manitos = [...player];
@@ -87,10 +88,16 @@ export default {
       // 특수 문자 제거
       this.inputName = this.inputName.replace(/[!@#$%^&*()_\-.,?~]/g, "");
     },
-    // TODO :: www.manitoSelect.참여자이름/마니또대상이름 나오면 링크에서 뽀록나니까 마니또 대상이름은 index넘버로 변경해야함
+    // TODO :: idex로 하려면 [{player: '', manito: ''}, {player: '', manito: ''} ] 형태여야함.
+    // -> indexOf 혹은 findIndex 배열함수를 통해 index 찾아서 쿼리파라미터 끝에 삽입.
+    // TODO :: player만 들어간다면 상관없음.
     // 아니면참여자 이름만 링크로줘도될듯?
-    async copyManitoLink(player, row) {
-      const url = `http://localhost:8080/manitoSelect/${player}/${row}`;
+    // 링크복사
+    async copyManitoLink(player, manito) {
+      const idx =
+        this.manitoResult.findIndex((item) => item.manito === manito) + 1;
+      const url = `http://localhost:8080/manitoResult/${player}/${idx}`;
+
       try {
         await navigator.clipboard.writeText(url);
         alert("링크가 클립보드에 복사되었습니다!");
@@ -98,6 +105,10 @@ export default {
         console.error("클립보드에 복사하는데 실패했습니다", err);
         alert("클립보드에 복사하는데 실패했습니다");
       }
+    },
+     // 마니또 결과를 로컬 스토리지에 저장
+     saveManitoResult() {
+      localStorage.setItem('manitoResult', JSON.stringify(this.manitoResult));
     },
   },
 };
