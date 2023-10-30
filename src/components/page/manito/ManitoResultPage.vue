@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>{{ playerName }}의 마니또는 {{ manitoName }}입니다.</h1>
+    <h1>
+      {{ emoji }} {{ playerName }}의 마니또는 {{ manitoName }}입니다.
+      {{ emoji }}
+    </h1>
   </div>
 </template>
 
@@ -11,6 +14,7 @@ export default {
     return {
       playerName: "",
       manitoName: "",
+      emoji: "", // emoji 데이터를 저장할 속성 추가
     };
   },
   created() {
