@@ -135,11 +135,12 @@
 //  */
 // export default router;
 
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, beforeEach } from "vue-router";
 import UserLoginView from "../../components/page/login/UserLoginView.vue";
 import MainView from "../../components/page/main/MainView.vue";
 import ManitoSelect from "../../components/page/manito/ManitoSelect.vue";
 import ManitoResult from "../../components/page/manito/ManitoResultPage.vue";
+import { store } from "../store";
 
 const routes = [
   {
@@ -159,16 +160,24 @@ const routes = [
     component: ManitoSelect,
   },
   {
-    path: '/manitoResult/:player/:index',
-    name: 'ManitoResult',
+    path: "/manitoResult/:player/:index",
+    name: "ManitoResult",
     component: ManitoResult,
-    props: true 
-  }
+    props: true,
+  },
 ];
 
 let router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== "/userLogin" && !store.state.isLogin) {
+    next("/userLogin");
+  } else {
+    next();
+  }
 });
 
 export default router;
