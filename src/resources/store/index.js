@@ -1,6 +1,7 @@
 // import Vue from "vue";
 // import Vuex from "vuex";
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 // Vue.use(Vuex);
 // vuex동작원리 아래 사진 참고.
@@ -14,11 +15,19 @@ export const store = createStore({
       profileImgUrl: "",
     },
   },
+  // vuex-persistedstate를 사용함으로써 sessionStorage 내부에 state 저장. 동기화됨.
+  plugins: [
+    createPersistedState({
+      storage: window.sessionStorage,
+    }),
+  ],
+  // [getters]
   // 상태가 변경될 때마다 자동으로 다시 계산
   // 상태를 기반으로 계산된 값 반환.
   // computed와 기능 유사.
   // 상태가 변경될 때마다 자동으로 다시 계산.
   getters: {},
+  // [mutations]
   // mutations는 상태(state)를 동기적으로 변경하는 메소드들을 포함
   mutations: {
     loginSuccess(state, payload) {
@@ -27,9 +36,12 @@ export const store = createStore({
     },
     logoutSuccess(state) {
       state.isLogin = false;
-      state.usrInfo = {};
+      state.usrInfo = { nickName: "", profileImgUrl: "" };
+      // sessionStorage를 수정하지 않아도 되는 이유는 vuex-persistedstate를 사용했기 때문!
+      // Vuex store의 state가 sessionStorage와 자동으로 동기화되기 때문에, 따로 초기화 하지 않아도 됨.
     },
   },
+  // [actions]
   // 비동기 작업을 처리하는 메소드들을 포함
   // 직접 상태 변경 x, 로직 수행 및 결과에 따른 mutations를 호출함.
   // API 호출과 같은 비동기 작업이나, 여러 개의 mutation을 연속적으로 커밋(commit)할 때 사용
@@ -41,19 +53,16 @@ export const store = createStore({
           dispatch("setUserInfo"); // setUserInfo action 호출
         },
       });
-      dispatch("getUserInfo"); // getUserInfo action 호출
     },
-    setUserInfo() {
+    setUserInfo({ commit }) {
       window.Kakao.API.request({
         url: "/v2/user/me",
         success: (res) => {
-          const kakao_account = res.kakao_account;
-          const nickname = kakao_account.profile.nickname;
-          const profileImgUrl = kakao_account.profile.profile_image_url;
-
-          localStorage.setItem("nickname", nickname);
-          localStorage.setItem("profileImgUrl", profileImgUrl);
-          localStorage.setItem("isLogin", true);
+          const { nickname, profile_image_url } = res.kakao_account.profile;
+          commit("loginSuccess", {
+            nickName: nickname,
+            profileImgUrl: profile_image_url,
+          });
         },
         fail: (error) => {
           console.log(error);
@@ -61,35 +70,13 @@ export const store = createStore({
       });
     },
     getUserInfo({ commit }) {
-      const usrInfo = {
-        nickName: localStorage.getItem("nickname"),
-        profileImgUrl: localStorage.getItem("profileImgUrl"),
-      };
-      commit("loginSuccess", usrInfo);
+      const usrInfo = JSON.parse(window.sessionStorage.getItem("usrInfo"));
+      if (usrInfo) commit("loginSuccess", usrInfo);
     },
     logout({ commit }) {
-      // console.log(window.Kakao.Auth.getAccessToken());
       window.Kakao.Auth.logout(() => {
         commit("logoutSuccess");
-        // localStorage.clear();
-        localStorage.setItem("nickname", "");
-        localStorage.setItem("profileImgUrl", "");
-        localStorage.setItem("isLogin", false);
       });
-      // window.Kakao.Auth.logout()
-      //   .then(function () {
-      //     alert(
-      //       "logout ok\naccess token -> " + window.Kakao.Auth.getAccessToken()
-      //     );
-      //     commit("logoutSuccess");
-      //     // localStorage.clear();
-      //     localStorage.setItem("nickname", "");
-      //     localStorage.setItem("profileImgUrl", "");
-      //     localStorage.setItem("isLogin", false);
-      //   })
-      //   .catch(function () {
-      //     alert("Not logged in");
-      //   });
     },
   },
 });

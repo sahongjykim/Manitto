@@ -33,6 +33,7 @@ export default {
             this.logout();
         },  
     },
+    // TODO::새로고침 시, isLogin 상태가 true로 바뀜 
     computed: {
     ...mapState(['isLogin', 'usrInfo']) 
     }
