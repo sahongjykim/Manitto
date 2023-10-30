@@ -3,74 +3,85 @@ export default {
   data() {
     return {
       inputName: "",
-      players: [],
+      player: [],
       manitoResult: [],
       status: false,
     };
   },
   methods: {
-    // 플레이어 등록
-    registPlayer() {
+    registManito() {
       if (this.inputName.trim() === "") {
-        alert("이름을 입력해주세ddd요");
-      } else if (this.players.includes(this.inputName)) {
-        alert("중복된 이름이 있습니다.");
-      } else if (!this.players.includes(this.inputName)) {
-        this.players.push({
-          player: this.inputName,
-        });
-        console.log("players:", this.players);
+        alert("이름을 입력해주세요");
+        return;
+      }
+      if (this.player.includes(this.inputName)) {
+        alert("중복된 이름이 있습니다");
+        return;
+      }
+      if (!this.player.includes(this.inputName)) {
+        this.player.push(this.inputName);
         this.inputName = "";
+        console.log(this.player);
       }
     },
-    // 플레이어 삭제
     removePlayer(index) {
-      this.players.splice(index, 1);
+      this.player.splice(index, 1);
     },
     drawManito() {
-      if (this.players.length < 2) {
+      if (this.player.length < 2) {
         alert("마니또를 뽑기 위해서는 참여자가 최소 2명 이상이어야 합니다.");
         return;
       } else {
-        this.manitoResult = this.drawManitoGoGo(this.players);
-        console.log("개발자만 아는 결과dddd:", this.manitoResult);
+        this.manitoResult = this.drawManitoGoGo(this.player);
         this.status = true;
         this.saveManitoResult(); // TODO :: 마니또 결과를 로컬 스토리지에 저장 -> vuex 셋팅끝나면 거기로
       }
     },
     // 마니또 생성 로직.
     drawManitoGoGo(names) {
-      let players = [...names];
-      let manitos = [...names];
+      let player = names;
+      let manitos = [...player];
       let result = [];
 
-      players.forEach((player) => {
-        let availableManitos = manitos.filter(
-          (manito) => manito.player !== player.player
-        );
+      for (let i = 0; i < player.length; i++) {
+        let availableManitos = manitos.filter((manito) => manito !== player[i]);
+
+        // 현재 참여자가 마지막 참여자이고, 가능한 마니또가 자신뿐이라면 처음부터 다시 뽑기
+        if (
+          i === player.length - 1 &&
+          availableManitos.length === 1 &&
+          availableManitos[0] === player[i]
+        ) {
+          return this.drawManitoGoGo(names);
+        }
+
         let randomIndex = Math.floor(Math.random() * availableManitos.length);
-        let selectedManito = availableManitos[randomIndex].player;
 
-        // 선택된 player와 manito를 result 배열에 추가
-        result.push({
-          player: player.player,
-          manito: selectedManito,
-        });
+        // 가능한 마니또 후보가 없거나, 마지막 참여자의 경우에만 자신을 마니또로 뽑게 될 경우, 처음부터 다시 뽑기
+        if (
+          !availableManitos[randomIndex] ||
+          (i === player.length - 1 &&
+            availableManitos[randomIndex] === player[i])
+        ) {
+          return this.drawManitoGoGo(names);
+        }
 
-        // 선택된 player와 manito를 배열에 제거 -> 선택된건 제거. 중복 선택 방지.
-        players = players.filter((p) => p.player !== player.player);
-        manitos = manitos.filter((m) => m.player !== selectedManito);
-      });
+        let selectedManito = availableManitos[randomIndex];
+
+        result.push({ player: player[i], manito: selectedManito, row: i + 1 });
+
+        // 이미 뽑힌 마니또는 목록에서 제거
+        manitos = manitos.filter((manito) => manito !== selectedManito);
+      }
+
       return result;
     },
-    // 초기화
     resetGame() {
       this.inputName = "";
-      this.players = [];
+      this.player = [];
       this.manitoResult = [];
       this.status = false;
     },
-    // 공백제거
     removeSpaces() {
       // 공백 제거
       this.inputName = this.inputName.replace(/\s/g, "");
@@ -86,6 +97,7 @@ export default {
       const idx =
         this.manitoResult.findIndex((item) => item.manito === manito) + 1;
       const url = `http://localhost:8080/manitoResult/${player}/${idx}`;
+
       try {
         await navigator.clipboard.writeText(url);
         alert("링크가 클립보드에 복사되었습니다!");

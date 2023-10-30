@@ -2,31 +2,30 @@
   <input
     v-model="inputName"
     @input="removeSpaces"
-    @keyup.enter="registPlayer"
     type="text"
     placeholder="마니또 참여자 이름을 입력해주세요"
     maxlength="10"
     :disabled="status"
   />
-  <button @click="registPlayer" :disabled="status">등록</button>
+  <button @click="registManito" :disabled="status">등록</button>
   <div>
     ------------
     <button @click="drawManito" :disabled="status">마니또뽑기</button>
     ------------
   </div>
-  <h1>참여자 ({{ players.length > 0 ? players.length : "0" }})</h1>
-  <div v-for="(p, index) in players" :key="index">
-    -> {{ p.player }}
+  <h1>참여자 ({{ player.length > 0 ? player.length : "0" }})</h1>
+  <div v-for="(playerName, index) in player" :key="index">
+    -> {{ playerName }}
     <button @click="removePlayer(index)" :disabled="status">X</button>
   </div>
 
   <div v-if="status">
     <h1>마니또 결과!!</h1>
-    <div class="row" v-for="(result, idx) in manitoResult" :key="idx">
-      <span @click="copyManitoLink(result.player, result.manito)"
-        >{{ result.player }}의 마니또 : ??? (결과공유 click)
+    <div class="row" v-for="(result, row) in manitoResult" :key="row">
+      <span @click="copyManitoLink(result.player, row)">
+        <!-- {{ result.player }}의 마니또 : {{ result.manito }} (결과공유 click) -->
+        {{ result.player }}의 마니또 : ??? (결과공유 click)
       </span>
-      <!-- 마니또 결과를 링크로 만들어서 복사 http://localhost:8080/manitoSelect/player/manito -->
     </div>
     <div>
       ------------
