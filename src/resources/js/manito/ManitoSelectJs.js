@@ -35,6 +35,7 @@ export default {
         this.manitoResult = this.drawManitoGoGo(this.player);
         this.status = true;
         this.saveManitoResult(); // TODO :: 마니또 결과를 로컬 스토리지에 저장 -> vuex 셋팅끝나면 거기로
+        console.log(this.manitoResult);
       }
     },
     // 마니또 생성 로직.
@@ -106,9 +107,9 @@ export default {
         alert("클립보드에 복사하는데 실패했습니다");
       }
     },
-     // 마니또 결과를 로컬 스토리지에 저장
-     saveManitoResult() {
-      localStorage.setItem('manitoResult', JSON.stringify(this.manitoResult));
+    // 마니또 결과를 로컬 스토리지에 저장
+    saveManitoResult() {
+      localStorage.setItem("manitoResult", JSON.stringify(this.manitoResult));
     },
   },
 };

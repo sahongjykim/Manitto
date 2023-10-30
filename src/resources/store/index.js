@@ -54,6 +54,8 @@ export const store = createStore({
           localStorage.setItem("nickname", nickname);
           localStorage.setItem("profileImgUrl", profileImgUrl);
           localStorage.setItem("isLogin", true);
+
+          console.log(window.Kakao.Auth.getAccessToken());
         },
         fail: (error) => {
           console.log(error);
@@ -68,7 +70,14 @@ export const store = createStore({
       commit("loginSuccess", usrInfo);
     },
     logout({ commit }) {
-      // console.log(window.Kakao.Auth.getAccessToken());
+      // jdk 초기화 필요
+      window.Kakao.init("32c148d16c25b3ee3fa4bf5641ae39a9");
+      // window.Kakao.isInitialized();
+      console.log(window.Kakao.Auth.getAccessToken());
+      if (!window.Kakao.Auth.getAccessToken()) {
+        return;
+      }
+
       window.Kakao.Auth.logout(() => {
         commit("logoutSuccess");
         // localStorage.clear();
