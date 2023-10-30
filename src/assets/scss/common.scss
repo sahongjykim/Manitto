@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    // font-family: 'Inter', sans-serif;    
+}
+
+body {
+    overflow: hidden;
+    overflow-y: auto;
+    font-size: 14px;
+    color: #0a0a0a;
+    letter-spacing: -0.05em;
+    line-height:1.4;
+}
+
+/*>>>> 스타일제거 <<<<*/
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/*>>>> Container <<<<*/
+.container {
+    padding:0 30px;
+    .contents {
+
+    }
+}
+
+
+
+/* Media Queries */
+
+// 모바일 퍼스트: min
+// 데스크탑 퍼스트 : max
+
+	
+.title { font-size: 30px; }
+ 
+@media (min-width: 640px) {
+  .title { font-size: 14px; }
+}
+ 
+@media (min-width: 768px) {
+  .title { font-size: 16px; }
+}
+ 
+@media (min-width: 1024px) {
+  .title { font-size: 18px; }
+}
+
+
+
