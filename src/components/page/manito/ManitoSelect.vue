@@ -1,36 +1,59 @@
 <template>
-  <input
-    v-model="inputName"
-    @input="removeSpaces"
-    type="text"
-    placeholder="마니또 참여자 이름을 입력해주세요"
-    maxlength="10"
-    :disabled="status"
-  />
-  <button @click="registManito" :disabled="status">등록</button>
-  <div>
-    ------------
-    <button @click="drawManito" :disabled="status">마니또뽑기</button>
-    ------------
-  </div>
-  <h1>참여자 ({{ player.length > 0 ? player.length : "0" }})</h1>
-  <div v-for="(playerName, index) in player" :key="index">
-    -> {{ playerName }}
-    <button @click="removePlayer(index)" :disabled="status">X</button>
-  </div>
-
-  <div v-if="status">
-    <h1>마니또 결과!!</h1>
-    <div class="row" v-for="(result, row) in manitoResult" :key="row">
-      <span @click="copyManitoLink(result.player, row)">
-        <!-- {{ result.player }}의 마니또 : {{ result.manito }} (결과공유 click) -->
-        {{ result.player }}의 마니또 : ??? (결과공유 click)
-      </span>
+  <div id="contents">
+    <div v-show="!status">
+      <div id="draw-manito">
+        <div class="title mt30">
+          DRAW! <span>{{ randomEmoji }}</span> <br />
+          MANITTO!
+        </div>
+        <div class="inputName mt30">
+          <input
+            v-model="inputName"
+            @input="removeSpaces"
+            type="text"
+            placeholder="참여자 이름을 입력해주세요!!"
+            maxlength="10"
+            :disabled="status"
+          />
+          <div class="button" @click="registManito" :disabled="status">
+            등록
+          </div>
+        </div>
+        <div class="count-people mt30">
+          <span
+            >현재 참여자 :
+            {{ player.length > 0 ? player.length : "0" }} 명</span
+          >
+        </div>
+        <div
+          class="people-list mt15"
+          v-for="(playerName, index) in player"
+          :key="index"
+        >
+          {{ index + 1 }}. {{ playerName }}
+          <div class="button" @click="removePlayer(index)" :disabled="status">
+            X
+          </div>
+        </div>
+        <div class="draw mt15">
+          <div class="button" @click="drawManito" :disabled="status">
+            마니또뽑기
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      ------------
-      <button @click="resetGame">마니또 초기화</button>
-      ------------
+
+    <div class="manito-result mt30" v-if="status">
+      <div class="title mt30 mb30">마니또결과</div>
+      <div class="row mt15" v-for="(result, row) in manitoResult" :key="row">
+        <span @click="copyManitoLink(result.player, row)">
+          <!-- {{ result.player }}의 마니또 : {{ result.manito }} (결과공유 click) -->
+          {{ result.emoji }} {{ result.player }}의 마니또 : ??? (결과공유 click)
+        </span>
+      </div>
+      <div>
+        <div class="button mt30" @click="resetGame">마니또 초기화</div>
+      </div>
     </div>
   </div>
 </template>
