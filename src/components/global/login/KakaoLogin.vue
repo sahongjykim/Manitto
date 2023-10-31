@@ -18,6 +18,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import { store } from '@/resources/store';
 
 export default {
     name: "KakaoLogin",
@@ -28,6 +29,8 @@ export default {
         ...mapActions(['login', 'logout']),
         fnKakaoLogin() {
             this.login();
+            store.dispatch("getUserInfo"); // Vuex 상태를 sessionStorage에서 로드
+            console.log(store.state.isLogin); // false
         },
         fnKakaoLogout() {
             this.logout();

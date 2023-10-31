@@ -70,8 +70,10 @@ export const store = createStore({
       });
     },
     getUserInfo({ commit }) {
-      const usrInfo = JSON.parse(window.sessionStorage.getItem("usrInfo"));
-      if (usrInfo) commit("loginSuccess", usrInfo);
+      const usrInfo = JSON.parse(window.sessionStorage.getItem("vuex"));
+      console.log("usrInfo", usrInfo);
+      if (usrInfo) commit("loginSuccess", usrInfo.usrInfo);
+      console.log("getUserInfo실행");
     },
     logout({ commit }) {
       window.Kakao.Auth.logout(() => {

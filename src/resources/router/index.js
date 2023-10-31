@@ -173,9 +173,16 @@ let router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== "/userLogin" && !store.state.isLogin) {
-    next("/userLogin");
-  } else {
+  // if (to.path !== "/userLogin" && !store.state.isLogin) {
+  //   next("/userLogin");
+  // } else if (to.name == "ManitoResult" && store.state.isLogin) {
+  //   // const { player, index } = to.params;
+  //   // next({ name: "manitoResult", params: { player, index } });
+  //   next();
+  // } else {
+  //   next();
+  // }
+  if (store.state.isLogin === false) {
     next();
   }
 });
