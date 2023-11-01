@@ -30,7 +30,16 @@ var db = firebase.initializeApp(firebaseConfig);
 db.firestore()
   .collection("test")
   .add({
-    test: [1, 0],
+    test: [1, 3],
+    a: "a",
+  })
+  .then((r) => console.log(r))
+  .catch((e) => console.log(e));
+db.firestore()
+  .collection("tes2t")
+  .add({
+    test: [2, 0],
+    a: "b",
   })
   .then((r) => console.log(r))
   .catch((e) => console.log(e));
