@@ -30,7 +30,6 @@ export default {
         fnKakaoLogin() {
             this.login();
             store.dispatch("getUserInfo"); // Vuex 상태를 sessionStorage에서 로드
-            console.log(store.state.isLogin); // false
         },
         fnKakaoLogout() {
             this.logout();
