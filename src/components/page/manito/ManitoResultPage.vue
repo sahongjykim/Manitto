@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="base">
     <h1>
       {{ emoji }} {{ playerName }}의 마니또는 {{ manitoName }}입니다.
       {{ emoji }}

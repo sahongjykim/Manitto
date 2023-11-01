@@ -25,6 +25,7 @@ body {
 }
 
 #contents {
+  // width: 30%;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -80,10 +81,6 @@ input, button {
   justify-content: center;
   align-items: center;
 }
-/* Media Queries */
-
-// 모바일 퍼스트: min
-// 데스크탑 퍼스트 : max
 
 
 /*>>>> 타이틀 색상변경 <<<<*/
@@ -108,17 +105,39 @@ input, button {
     top: -4px;
   }
 }
- 
+
+/* Media Queries */
+
+// 모바일 퍼스트: min
+// 데스크탑 퍼스트 : max
+
 @media (min-width: 640px) {
-  .title { font-size: 14px; }
+  .base{
+    width: 338px;
+  }
+  .title { font-size: 88px; }
 }
- 
+
 @media (min-width: 768px) {
-  .title { font-size: 16px; }
+  .base{
+    width: 342px;
+  }
+  .title { font-size: 88px; }
 }
  
 @media (min-width: 1024px) {
+  .base{
+    width: 342px;
+  }
   .title { font-size: 90px; }
+}
+
+// 가장 최소 화면크기일 때.
+@media (max-width: 639px) {
+  .base{
+    width: 338px;
+  }
+  .title { font-size: 88px; }
 }
 
 
