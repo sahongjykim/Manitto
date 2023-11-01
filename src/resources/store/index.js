@@ -67,6 +67,11 @@ export const store = createStore({
           commit("loginSuccess", {
             nickName: nickname,
             profileImgUrl: profile_image_url,
+            // TODO ::
+            // 1.파이어 베이스에서 ID를 조회한다
+            // 2. 조회한 id가 일치한 값이 있다 -> 기존 회원
+            // 3. 조회한 id가 없다 -> 파이어베이스에 새로운 id를 add한다.
+            // 4. add할 때, id, 닉네임(카카오에서받은)  데이터를 ADD한다.
           });
         },
         fail: (error) => {

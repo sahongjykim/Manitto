@@ -1,3 +1,5 @@
+import { firestore } from "@/resources/firebase/firebaseConfig";
+
 export default {
   name: "ManitoSelect",
   data() {
@@ -199,6 +201,14 @@ export default {
         this.status = true;
         this.saveManitoResult(); // TODO :: 마니또 결과를 로컬 스토리지에 저장 -> vuex 셋팅끝나면 거기로
         console.log(this.manitoResult);
+        firestore
+          .collection("test41")
+          .add({
+            test: [1, 3],
+            a: "a",
+          })
+          .then((r) => console.log(r))
+          .catch((e) => console.log(e));
       }
     },
     // 마니또 생성 로직.
