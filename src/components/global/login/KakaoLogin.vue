@@ -1,8 +1,9 @@
 <template>
     <div>
         <div v-if="!isLogin">
+            <h3>마니또 뽑기</h3>
             <button @click="fnKakaoLogin">
-               카카오로 로그인
+               카카오로 3초 로그인
             </button> 
         </div>
         <div v-if="isLogin">

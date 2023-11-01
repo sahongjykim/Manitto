@@ -26,7 +26,12 @@ export const store = createStore({
   // 상태를 기반으로 계산된 값 반환.
   // computed와 기능 유사.
   // 상태가 변경될 때마다 자동으로 다시 계산.
-  getters: {},
+  getters: {
+    isLogin: (state) => {
+      // 로그인 상태이면서 만료시간이 유지되어있어야 로그인 되있다고 간주함
+      return state.isLogin;
+    },
+  },
   // [mutations]
   // mutations는 상태(state)를 동기적으로 변경하는 메소드들을 포함
   mutations: {
@@ -71,9 +76,9 @@ export const store = createStore({
     },
     getUserInfo({ commit }) {
       const usrInfo = JSON.parse(window.sessionStorage.getItem("vuex"));
-      console.log("usrInfo", usrInfo);
+      // console.log("usrInfo", usrInfo);
       if (usrInfo) commit("loginSuccess", usrInfo.usrInfo);
-      console.log("getUserInfo실행");
+      // console.log("getUserInfo실행");
     },
     logout({ commit }) {
       window.Kakao.Auth.logout(() => {

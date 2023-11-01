@@ -137,7 +137,7 @@
 
 import { createRouter, createWebHistory, beforeEach } from "vue-router";
 import UserLoginView from "../../components/page/login/UserLoginView.vue";
-import MainView from "../../components/page/main/MainView.vue";
+// import MainView from "../../components/page/main/MainView.vue";
 import ManitoSelect from "../../components/page/manito/ManitoSelect.vue";
 import ManitoResult from "../../components/page/manito/ManitoResultPage.vue";
 import { store } from "../store";
@@ -145,25 +145,29 @@ import { store } from "../store";
 const routes = [
   {
     path: "/",
-    redirect: "/main",
+    redirect: "/userLogin",
   },
+  // {
+  //   path: "/main",
+  //   component: MainView,
+  // },
   {
-    path: "/main",
-    component: MainView,
-  },
-  {
-    path: "/userLogin",
+    path: "/userLogin", // 메인페이지로 간주.
+    name: "UserLogin",
     component: UserLoginView,
   },
   {
     path: "/manitoSelect",
+    name: "ManitoSelect",
     component: ManitoSelect,
+    meta: { requiresAuth: true }, // 해당 라우터는 auth인증이 필요함.
   },
   {
     path: "/manitoResult/:player/:index",
     name: "ManitoResult",
     component: ManitoResult,
     props: true,
+    meta: { requiresAuth: false }, // 해당 라우터가 auth를 필요로 하지 않음.
   },
 ];
 
@@ -173,8 +177,12 @@ let router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== "/userLogin" && !store.state.isLogin) {
-    next("/userLogin");
+  if (
+    // to.matched.some 현재 라우트가 로그인을 필요로 하는지 확인
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !store.getters.isLogin
+  ) {
+    next({ path: "/userLogin" });
   } else {
     next();
   }

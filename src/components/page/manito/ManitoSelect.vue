@@ -10,6 +10,7 @@
           <input
             v-model="inputName"
             @input="removeSpaces"
+            @keyup.enter="registManito"
             type="text"
             placeholder="참여자 이름을 입력해주세요!!"
             maxlength="10"
@@ -45,11 +46,12 @@
 
     <div class="manito-result mt30" v-if="status">
       <div class="title mt30 mb30">마니또결과</div>
-      <div class="row mt15" v-for="(result, row) in manitoResult" :key="row">
-        <span @click="copyManitoLink(result.player, row)">
+      <div v-for="(result, row) in manitoResult" :key="row">
+        <span @click="copyManitoLink(result.player, row)" class="row mt15">
           <!-- {{ result.player }}의 마니또 : {{ result.manito }} (결과공유 click) -->
-          {{ result.emoji }} {{ result.player }}의 마니또 : ??? (결과공유 click)
+          {{ result.emoji }} {{ result.player }}의 마니또 : ??? (링크복사 click)
         </span>
+        <button>공유하기</button>
       </div>
       <div>
         <div class="button mt30" @click="resetGame">마니또 초기화</div>
