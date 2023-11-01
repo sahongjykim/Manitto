@@ -1,8 +1,9 @@
 <template>
     <div>
         <div v-if="!isLogin">
+            <h3>마니또 뽑기</h3>
             <button @click="fnKakaoLogin">
-               카카오로 로그인
+               카카오로 3초 로그인
             </button> 
         </div>
         <div v-if="isLogin">
@@ -30,7 +31,6 @@ export default {
         fnKakaoLogin() {
             this.login();
             store.dispatch("getUserInfo"); // Vuex 상태를 sessionStorage에서 로드
-            console.log(store.state.isLogin); // false
         },
         fnKakaoLogout() {
             this.logout();
