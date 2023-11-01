@@ -269,7 +269,7 @@ export default {
     async copyManitoLink(player, manito) {
       const idx =
         this.manitoResult.findIndex((item) => item.manito === manito) + 1;
-      const url = `https://your-manito.vercel.app/${player}/${idx}`;
+      const url = `https://your-manito.vercel.app/manitoResult/${player}/${idx}`;
 
       try {
         await navigator.clipboard.writeText(url);
