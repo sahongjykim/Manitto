@@ -4,6 +4,7 @@ export default {
   name: "ManitoSelect",
   data() {
     return {
+      clickedRows: {}, 
       inputName: "",
       player: [],
       manitoResult: [],
@@ -276,12 +277,13 @@ export default {
     // TODO :: player만 들어간다면 상관없음.
     // 아니면참여자 이름만 링크로줘도될듯?
     // 링크복사
-    async copyManitoLink(player, manito) {
+    async copyManitoLink(player, manito, row) {
       const idx =
         this.manitoResult.findIndex((item) => item.manito === manito) + 1;
       const url = `https://your-manito.vercel.app/manitoResult/${player}/${idx}`;
 
       try {
+        this.clickedRows[row] = true;
         await navigator.clipboard.writeText(url);
         alert("링크가 클립보드에 복사되었습니다!");
       } catch (err) {
