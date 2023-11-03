@@ -1,6 +1,8 @@
 <template>
   <div id="contents">
     <div class="base">
+
+      <!-- MANITO DRAW -->
       <div v-show="!status">
         <div id="draw-manito">
           <div class="title mt30">
@@ -50,6 +52,7 @@
       </div>
     </div>
 
+    <!-- MANITO DRAW RESULT -->
     <div class="manito-result mt30" v-if="status">
       <div class="base">
         <div class="title mt30 mb30">!결과!</div>
@@ -59,16 +62,16 @@
           v-for="(result, row) in manitoResult"
           :key="row"
         >
-          <div
-            @click="copyManitoLink(result.player, result.manito, row)"
-            class="row mt30"
-          >
+          <div class="row mt30">
             <!-- {{ result.player }}의 마니또 : {{ result.manito }} (결과공유 click) -->
             {{ row + 1 }}. {{ result.player }}의 마니또 : {{ result.emoji }}
           </div>
-          <div class="link">
-            ☞ 결과 링크 복사! | 카카오톡 공유&nbsp;
-            <font-awesome-icon :icon="['fas', 'share-from-square']" />
+          <div class="link" >
+            <span @click="copyManitoLink(result.player, result.manito, row)">☞ 결과 링크 복사!</span>
+            | 
+            <span  @click="shareManitoLink(result.player, result.manito, row)">카카오톡 공유&nbsp;</span>
+            <font-awesome-icon :icon="['fas', 'link']" />
+            <!-- <font-awesome-icon :icon="['fas', 'share-from-square']" /> -->
           </div>
         </div>
         <div>

@@ -4,7 +4,7 @@ export default {
   name: "ManitoSelect",
   data() {
     return {
-      clickedRows: {}, 
+      clickedRows: {},
       inputName: "",
       player: [],
       manitoResult: [],
@@ -272,11 +272,6 @@ export default {
       // 특수 문자 제거
       this.inputName = this.inputName.replace(/[!@#$%^&*()_\-.,?~]/g, "");
     },
-    // TODO :: idex로 하려면 [{player: '', manito: ''}, {player: '', manito: ''} ] 형태여야함.
-    // -> indexOf 혹은 findIndex 배열함수를 통해 index 찾아서 쿼리파라미터 끝에 삽입.
-    // TODO :: player만 들어간다면 상관없음.
-    // 아니면참여자 이름만 링크로줘도될듯?
-    // 링크복사
     async copyManitoLink(player, manito, row) {
       const idx =
         this.manitoResult.findIndex((item) => item.manito === manito) + 1;
@@ -294,6 +289,27 @@ export default {
     // 마니또 결과를 로컬 스토리지에 저장
     saveManitoResult() {
       localStorage.setItem("manitoResult", JSON.stringify(this.manitoResult));
+    },
+    // 카카오톡으로 마니또 결과 링크 공유
+    shareManitoLink(player, manito, row) {
+      const idx =
+        this.manitoResult.findIndex((item) => item.manito === manito) + 1;
+      const url = `https://your-manito.vercel.app/manitoResult/${player}/${idx}`;
+      // `navigator.share` API를 사용하여 공유합니다.
+      if (navigator.share) {
+        navigator
+          .share({
+            title: `${player}의 마니또 결과`,
+            text: `${player}의 마니또는 ${manito}입니다. 결과를 확인하세요!`,
+            url: url,
+          })
+          .then(() => console.log("공유 성공"))
+          .catch((error) => console.log("공유 실패", error));
+      } else {
+        // 만약 `navigator.share`를 지원하지 않는 브라우저인 경우
+        console.log("이 브라우저에서는 공유 기능을 지원하지 않습니다.");
+        // 대체 로직을 실행하거나 사용자에게 알림을 줄 수 있습니다.
+      }
     },
   },
 };
