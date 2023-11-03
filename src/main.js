@@ -5,12 +5,21 @@ import { store } from "./resources/store";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+
+library.add(fas); // 'fas'는 모든 solid 아이콘을 의미합니다.
+
 
 // import { firestore } from "./resources/firebase/firebaseConfig";
 
 window.Kakao.init("32c148d16c25b3ee3fa4bf5641ae39a9");
 
+
 const app = createApp(App);
+app.component('font-awesome-icon', FontAwesomeIcon); // 여기로 이동
 app.use(router);
 app.use(store);
 app.mount("#app");
@@ -35,11 +44,4 @@ db.firestore()
   })
   .then((r) => console.log(r))
   .catch((e) => console.log(e));
-db.firestore()
-  .collection("tes2t")
-  .add({
-    test: [2, 0],
-    a: "b",
-  })
-  .then((r) => console.log(r))
-  .catch((e) => console.log(e));
+

@@ -1,11 +1,16 @@
 <template>
   <div id="contents">
     <div class="base">
+
+      <!-- MANITO DRAW -->
       <div v-show="!status">
         <div id="draw-manito">
           <div class="title mt30">
-            DRAW! <span>{{ randomEmoji }}</span> <br />
+            DRAW! <br />
             MANITTO!
+            <div class="mt30">
+              {{ randomEmoji }}
+            </div>
           </div>
           <div class="inputName mt30">
             <input
@@ -21,6 +26,7 @@
               등록
             </div>
           </div>
+          <div class="mt30 btl-black"></div>
           <div class="count-people mt30">
             <span
               >현재 참여자 :
@@ -46,16 +52,27 @@
       </div>
     </div>
 
+    <!-- MANITO DRAW RESULT -->
     <div class="manito-result mt30" v-if="status">
       <div class="base">
         <div class="title mt30 mb30">!결과!</div>
-        <div v-for="(result, row) in manitoResult" :key="row">
-          <span @click="copyManitoLink(result.player, row)" class="row mt15">
+        <div
+          :class="{ clicked: clickedRows[row] }"
+          class="hov mt15"
+          v-for="(result, row) in manitoResult"
+          :key="row"
+        >
+          <div class="row mt30">
             <!-- {{ result.player }}의 마니또 : {{ result.manito }} (결과공유 click) -->
-            {{ result.emoji }} {{ result.player }}의 마니또 : ??? (링크복사
-            click)
-          </span>
-          <button>공유하기</button>
+            {{ row + 1 }}. {{ result.player }}의 마니또 : {{ result.emoji }}
+          </div>
+          <div class="link" >
+            <span @click="copyManitoLink(result.player, result.manito, row)">☞ 결과 링크 복사!</span>
+            | 
+            <span  @click="shareManitoLink(result.player, result.manito, row)">카카오톡 공유&nbsp;</span>
+            <font-awesome-icon :icon="['fas', 'link']" />
+            <!-- <font-awesome-icon :icon="['fas', 'share-from-square']" /> -->
+          </div>
         </div>
         <div>
           <div class="button mt30" @click="resetGame">마니또 초기화</div>
@@ -76,14 +93,5 @@ input {
 }
 button {
   margin-bottom: 20px;
-}
-.row {
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.row:hover {
-  background-color: #eee8c8; /* 원하는 색상으로 변경 */
-  color: #1e89a9;
 }
 </style>
