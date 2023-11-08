@@ -1,4 +1,6 @@
 import { firestore } from "@/resources/firebase/firebaseConfig";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { mapState } from "vuex";
 
 export default {
   name: "ManitoSelect",
@@ -200,16 +202,7 @@ export default {
       } else {
         this.manitoResult = this.drawManitoGoGo(this.player);
         this.status = true;
-        this.saveManitoResult(); // TODO :: 마니또 결과를 로컬 스토리지에 저장 -> vuex 셋팅끝나면 거기로
-        console.log(this.manitoResult);
-        firestore
-          .collection("test41")
-          .add({
-            test: [1, 3],
-            a: "a",
-          })
-          .then((r) => console.log(r))
-          .catch((e) => console.log(e));
+        this.saveManitoResult();
       }
     },
     // 마니또 생성 로직.
@@ -286,9 +279,32 @@ export default {
         alert("클립보드에 복사하는데 실패했습니다");
       }
     },
-    // 마니또 결과를 로컬 스토리지에 저장
+    // 마니또 결과를 파이어스토어에 저장.
     saveManitoResult() {
+      // console.log(this.manitoResult);
       // localStorage.setItem("manitoResult", JSON.stringify(this.manitoResult));
+      // manitoResult: [{ player: "", manito: "", emoji: "", row: 0 }, { player: "", manito: "", emoji: "", row: 0 }]
+      const docId = this.usrInfo.kakaoKey;
+      const db = firestore;
+      const userDocRef = doc(db, "users", docId);
+
+      getDoc(userDocRef)
+        .then((doc) => {
+          if (doc.exists()) {
+            // results 필드 업데이트
+            return updateDoc(userDocRef, { results: this.manitoResult });
+          } else {
+            // docId가 동일한 doc이 없을 경우
+            // 새로운 사용자 문서를 만들고 results 필드 추가
+            return setDoc(userDocRef, { results: this.manitoResult });
+          }
+        })
+        .then(() => {
+          console.log("마니또결과 firestore 저장 또는 업데이트 완료!");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     // 카카오톡으로 마니또 결과 링크 공유
     shareManitoLink(player, manito) {
@@ -311,5 +327,8 @@ export default {
         // 대체 로직을 실행하거나 사용자에게 알림을 줄 수 있습니다.
       }
     },
+  },
+  computed: {
+    ...mapState(["usrInfo"]),
   },
 };
