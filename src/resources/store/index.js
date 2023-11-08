@@ -2,6 +2,8 @@
 // import Vuex from "vuex";
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import { firestore } from "@/resources/firebase/firebaseConfig";
+import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 // Vue.use(Vuex);
 // vuex동작원리 아래 사진 참고.
@@ -11,6 +13,7 @@ export const store = createStore({
   state: {
     isLogin: false,
     usrInfo: {
+      kakaoKey: "",
       nickName: "",
       profileImgUrl: "",
     },
@@ -64,15 +67,60 @@ export const store = createStore({
         url: "/v2/user/me",
         success: (res) => {
           const { nickname, profile_image_url } = res.kakao_account.profile;
-          commit("loginSuccess", {
-            nickName: nickname,
-            profileImgUrl: profile_image_url,
+
+          // 로컬스토리지에서 키만 빼오기.
+          const localStorageKeys = Object.keys(localStorage);
+          // 빼온 키에서 kakao_로 시작하는 것만 찾기
+          const findKakaoKey = localStorageKeys.find((key) =>
+            key.startsWith("kakao_")
+          );
+
+          // kakao_로 시작하는 것이 있으면 그것의 6번째 인덱스부터 끝까지 잘라내기 => 고유의 회원 id키로 지정
+          if (findKakaoKey) {
+            const kakaoKey = findKakaoKey.slice(6);
+
             // TODO ::
             // 1.파이어 베이스에서 ID를 조회한다
+            // -> 매번 조회하는 방법보다 추가할때 분기처리하는 방법이 더 효율적임.
             // 2. 조회한 id가 일치한 값이 있다 -> 기존 회원
             // 3. 조회한 id가 없다 -> 파이어베이스에 새로운 id를 add한다.
             // 4. add할 때, id, 닉네임(카카오에서받은)  데이터를 ADD한다.
-          });
+            const db = firestore;
+
+            // [실시간으로 바뀌는 db 조회] user collection 조회.
+            // const usersCollection = collection(db, "users");
+            // getDocs(usersCollection)
+            //   .then((querySnapshot) => {
+            //     querySnapshot.forEach((doc) => {
+            //       console.log(doc.id, " => ", doc.data());
+            //     });
+            //   })
+            //   .catch((error) => {
+            //     console.error(error);
+            //   });
+
+            const usrInfo = {
+              kakaoKey: kakaoKey,
+              nickName: nickname,
+              profileImgUrl: profile_image_url,
+            };
+
+            // [insert] users collection에 userInfo insert
+            // setDoc: doc문서 id 직접지정.
+            // addDoc: doc문서 id 자동생성.
+            // users collection안에 doc이름을 고유한 kakaokey로 생성.
+            setDoc(doc(db, "users", kakaoKey), usrInfo)
+              .then(() => {
+                commit("loginSuccess", {
+                  nickName: nickname,
+                  profileImgUrl: profile_image_url,
+                  kakaoKey: kakaoKey,
+                });
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          }
         },
         fail: (error) => {
           console.log(error);
@@ -81,10 +129,9 @@ export const store = createStore({
     },
     getUserInfo({ commit }) {
       const usrInfo = JSON.parse(window.sessionStorage.getItem("vuex"));
-      // console.log("usrInfo", usrInfo);
       if (usrInfo) commit("loginSuccess", usrInfo.usrInfo);
-      // console.log("getUserInfo실행");
     },
+
     logout({ commit }) {
       window.Kakao.Auth.logout(() => {
         commit("logoutSuccess");

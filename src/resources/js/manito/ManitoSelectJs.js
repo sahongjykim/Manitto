@@ -288,10 +288,10 @@ export default {
     },
     // 마니또 결과를 로컬 스토리지에 저장
     saveManitoResult() {
-      localStorage.setItem("manitoResult", JSON.stringify(this.manitoResult));
+      // localStorage.setItem("manitoResult", JSON.stringify(this.manitoResult));
     },
     // 카카오톡으로 마니또 결과 링크 공유
-    shareManitoLink(player, manito, row) {
+    shareManitoLink(player, manito) {
       const idx =
         this.manitoResult.findIndex((item) => item.manito === manito) + 1;
       const url = `https://your-manito.vercel.app/manitoResult/${player}/${idx}`;
