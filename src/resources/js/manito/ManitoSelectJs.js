@@ -271,8 +271,8 @@ export default {
       const user = encodeURIComponent(player);
       const yourManito = encodeURIComponent(manito);
 
-      // const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
-      const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
+      const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
+      // const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
 
       try {
         this.clickedRows[row] = true;
@@ -316,8 +316,8 @@ export default {
       const user = encodeURIComponent(player);
       const yourManito = encodeURIComponent(manito);
 
-      // const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
-      const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
+      const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
+      // const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
       // const url = `https://your-manito.vercel.app/manitoResult/${player}/${yourManito}`;
       // `navigator.share` API를 사용하여 공유합니다.
       if (navigator.share) {
