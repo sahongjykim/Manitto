@@ -13,7 +13,7 @@ library.add(fas); // 'fas'는 모든 solid 아이콘을 의미합니다.
 
 // import { firestore } from "./resources/firebase/firebaseConfig";
 
-window.Kakao.init("32c148d16c25b3ee3fa4bf5641ae39a9");
+// window.Kakao.init("32c148d16c25b3ee3fa4bf5641ae39a9");
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon); // 여기로 이동
