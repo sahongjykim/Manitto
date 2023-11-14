@@ -67,9 +67,9 @@
             {{ row + 1 }}. {{ result.player }}의 마니또 : {{ result.emoji }}
           </div>
           <div class="link" >
-            <span @click="copyManitoLink(result.player, result.manito, row)">☞ 결과 링크 복사!</span>
+            <span @click="copyManitoLink(result.player, result.manito, row, result.emoji)">☞ 결과 링크 복사!</span>
             | 
-            <span  @click="shareManitoLink(result.player, result.manito, row)">카카오톡 공유&nbsp;</span>
+            <span  @click="shareManitoLink(result.player, result.manito, row, result.emoji)">카카오톡 공유&nbsp;</span>
             <font-awesome-icon :icon="['fas', 'link']" />
             <!-- <font-awesome-icon :icon="['fas', 'share-from-square']" /> -->
           </div>

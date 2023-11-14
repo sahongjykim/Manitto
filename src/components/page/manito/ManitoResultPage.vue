@@ -10,17 +10,18 @@
 <script>
 export default {
   // props: ["player"],
-  props: ['user', 'result'],
+  props: ['user', 'result', 'emoji'],
   data() {
     return {
       playerName: "",
       manitoName: "",
-      emoji: "", // emoji 데이터를 저장할 속성 추가
+      playerEmoji: "", // emoji 데이터를 저장할 속성 추가
     };
   },
   mounted() {
     this.playerName = this.user;
     this.manitoName = this.result;
+    this.playerEmoji = this.emoji
   },
   created() {
     // this.loadManitoResult();

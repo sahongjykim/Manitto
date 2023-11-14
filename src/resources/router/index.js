@@ -163,7 +163,7 @@ const routes = [
     // meta: { requiresAuth: true }, // 해당 라우터는 auth인증이 필요함.
   },
   {
-    path: "/manitoResult/:user/:result",
+    path: "/manitoResult/:user/:result/:emoji",
     name: "ManitoResult",
     component: ManitoResult,
     props: true,

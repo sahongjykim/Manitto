@@ -265,13 +265,13 @@ export default {
       // 특수 문자 제거
       this.inputName = this.inputName.replace(/[!@#$%^&*()_\-.,?~]/g, "");
     },
-    async copyManitoLink(player, manito, row) {
+    async copyManitoLink(player, manito, row, emoji) {
       // const idx =
       //   this.manitoResult.findIndex((item) => item.manito === manito) + 1;
       const user = encodeURIComponent(player);
       const yourManito = encodeURIComponent(manito);
 
-      const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
+      const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}/${emoji}`;
       // const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
 
       try {
@@ -310,13 +310,13 @@ export default {
       //   });
     },
     // 마니또 결과 링크 공유
-    shareManitoLink(player, manito) {
+    shareManitoLink(player, manito, row, emoji) {
       // const idx =
       //   this.manitoResult.findIndex((item) => item.manito === manito) + 1;
       const user = encodeURIComponent(player);
       const yourManito = encodeURIComponent(manito);
 
-      const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
+      const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}/${emoji}`;
       // const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
       // const url = `https://your-manito.vercel.app/manitoResult/${player}/${yourManito}`;
       // `navigator.share` API를 사용하여 공유합니다.
