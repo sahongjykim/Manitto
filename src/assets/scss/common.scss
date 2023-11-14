@@ -208,12 +208,12 @@ input, button {
 
   .row{
     font-size: 28px;
-    line-height: 1.4;
+    line-height: 1.2;
     padding-top: 10px;
     
   }
   .clicked{
-    color: #1e89a9!important;
+    color: #616161!important;
   }
   .hov:hover {
     // background-color: #eee8c8; /* 원하는 색상으로 변경 */
@@ -225,7 +225,7 @@ input, button {
     margin-top: 8px;
     padding: 4px 4px 4px 4px; 
     font-size: 16px;
-    border-top: solid 1px rgb(177, 177, 177);
+    // border-top: solid 1px rgb(177, 177, 177);
     border-bottom: solid 4px black;
     align-items: center;
     // justify-content: flex-end;

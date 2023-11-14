@@ -6,6 +6,7 @@ export default {
   name: "ManitoSelect",
   data() {
     return {
+      modal:false,
       clickedRows: {},
       inputName: "",
       player: [],
@@ -172,6 +173,9 @@ export default {
     this.changeEmoji();
     setInterval(this.changeEmoji, 1000);
   },
+  mounted(){
+    this.modal = true;
+  },
   methods: {
     changeEmoji() {
       const randomIndex = Math.floor(Math.random() * this.emojis.length);
@@ -334,6 +338,9 @@ export default {
         console.log("이 브라우저에서는 공유 기능을 지원하지 않습니다.");
         // 대체 로직을 실행하거나 사용자에게 알림을 줄 수 있습니다.
       }
+    },
+    closeModal(){
+      this.modal = false;
     },
   },
   computed: {
