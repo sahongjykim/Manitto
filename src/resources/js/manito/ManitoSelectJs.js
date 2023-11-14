@@ -202,7 +202,7 @@ export default {
       } else {
         this.manitoResult = this.drawManitoGoGo(this.player);
         this.status = true;
-        this.saveManitoResult();
+        // this.saveManitoResult();
       }
     },
     // 마니또 생성 로직.
@@ -266,9 +266,13 @@ export default {
       this.inputName = this.inputName.replace(/[!@#$%^&*()_\-.,?~]/g, "");
     },
     async copyManitoLink(player, manito, row) {
-      const idx =
-        this.manitoResult.findIndex((item) => item.manito === manito) + 1;
-      const url = `https://your-manito.vercel.app/manitoResult/${player}/${idx}`;
+      // const idx =
+      //   this.manitoResult.findIndex((item) => item.manito === manito) + 1;
+      const user = encodeURIComponent(player);
+      const yourManito = encodeURIComponent(manito);
+
+      // const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
+      const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
 
       try {
         this.clickedRows[row] = true;
@@ -279,44 +283,48 @@ export default {
         alert("클립보드에 복사하는데 실패했습니다");
       }
     },
-    // 마니또 결과를 파이어스토어에 저장.
+    // 마니또 결과를 세션스토리지에 저장.
     saveManitoResult() {
       // console.log(this.manitoResult);
       // localStorage.setItem("manitoResult", JSON.stringify(this.manitoResult));
       // manitoResult: [{ player: "", manito: "", emoji: "", row: 0 }, { player: "", manito: "", emoji: "", row: 0 }]
-      const docId = this.usrInfo.kakaoKey;
-      const db = firestore;
-      const userDocRef = doc(db, "users", docId);
-
-      getDoc(userDocRef)
-        .then((doc) => {
-          if (doc.exists()) {
-            // results 필드 업데이트
-            return updateDoc(userDocRef, { results: this.manitoResult });
-          } else {
-            // docId가 동일한 doc이 없을 경우
-            // 새로운 사용자 문서를 만들고 results 필드 추가
-            return setDoc(userDocRef, { results: this.manitoResult });
-          }
-        })
-        .then(() => {
-          console.log("마니또결과 firestore 저장 또는 업데이트 완료!");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      // const docId = this.usrInfo.kakaoKey;
+      // const db = firestore;
+      // const userDocRef = doc(db, "users", docId);
+      // getDoc(userDocRef)
+      //   .then((doc) => {
+      //     if (doc.exists()) {
+      //       // results 필드 업데이트
+      //       return updateDoc(userDocRef, { results: this.manitoResult });
+      //     } else {
+      //       // docId가 동일한 doc이 없을 경우
+      //       // 새로운 사용자 문서를 만들고 results 필드 추가
+      //       return setDoc(userDocRef, { results: this.manitoResult });
+      //     }
+      //   })
+      //   .then(() => {
+      //     console.log("마니또결과 firestore 저장 또는 업데이트 완료!");
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
     },
-    // 카카오톡으로 마니또 결과 링크 공유
+    // 마니또 결과 링크 공유
     shareManitoLink(player, manito) {
-      const idx =
-        this.manitoResult.findIndex((item) => item.manito === manito) + 1;
-      const url = `https://your-manito.vercel.app/manitoResult/${player}/${idx}`;
+      // const idx =
+      //   this.manitoResult.findIndex((item) => item.manito === manito) + 1;
+      const user = encodeURIComponent(player);
+      const yourManito = encodeURIComponent(manito);
+
+      // const url = `https://your-manito.vercel.app/manitoResult/${user}/${yourManito}`;
+      const url = `http://localhost:8080/manitoResult/${user}/${yourManito}`;
+      // const url = `https://your-manito.vercel.app/manitoResult/${player}/${yourManito}`;
       // `navigator.share` API를 사용하여 공유합니다.
       if (navigator.share) {
         navigator
           .share({
             title: `${player}의 마니또 결과`,
-            text: `${player}의 마니또는 ${manito}입니다. 결과를 확인하세요!`,
+            // text: `${player}의 마니또는 ${manito}입니다. 결과를 확인하세요!`,
             url: url,
           })
           .then(() => console.log("공유 성공"))

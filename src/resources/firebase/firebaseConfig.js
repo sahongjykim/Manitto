@@ -5,25 +5,25 @@ import "firebase/compat/auth";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-const firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
-  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VUE_APP_FIREBASE_PROJECTID,
-  storageBucket: process.env.VUE_APP_FIREBASE_STORAGEBUCKET,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGINGSENDERID,
-  appId: process.env.VUE_APP_FIREBASE_APPID,
-  measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENTID,
-};
-
 // const firebaseConfig = {
-//   apiKey: "AIzaSyC0Mkz2NVwti8gkyUYacZMHjePaG7v_bbY",
-//   authDomain: "manito-a3802.firebaseapp.com",
-//   projectId: "manito-a3802",
-//   storageBucket: "manito-a3802.appspot.com",
-//   messagingSenderId: "998289841185",
-//   appId: "1:998289841185:web:2b1c8ad92bb6f2968dd760",
-//   measurementId: "8ZLQ81112R",
+//   apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
+//   authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+//   projectId: process.env.VUE_APP_FIREBASE_PROJECTID,
+//   storageBucket: process.env.VUE_APP_FIREBASE_STORAGEBUCKET,
+//   messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGINGSENDERID,
+//   appId: process.env.VUE_APP_FIREBASE_APPID,
+//   measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENTID,
 // };
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC0Mkz2NVwti8gkyUYacZMHjePaG7v_bbY",
+  authDomain: "manito-a3802.firebaseapp.com",
+  projectId: "manito-a3802",
+  storageBucket: "manito-a3802.appspot.com",
+  messagingSenderId: "998289841185",
+  appId: "1:998289841185:web:2b1c8ad92bb6f2968dd760",
+  measurementId: "8ZLQ81112R",
+};
 
 // firebaseConfig 정보로 firebase 시작
 const firebaseApp = initializeApp(firebaseConfig);
