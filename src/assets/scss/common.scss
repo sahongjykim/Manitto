@@ -52,6 +52,7 @@ input, button {
   margin: 0; /* 기본 마진을 제거합니다. */
   background: none; /* 배경을 투명으로 만듭니다. */
   outline: none; /* 포커스 효과 제거 */
+  touch-action: none;
 }
 
 
