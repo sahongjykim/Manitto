@@ -4,7 +4,7 @@
       <!-- MANITO DRAW -->
       <div v-show="!status">
         <div id="draw-manito">
-          <div class="title mt30">
+          <div @click="secretPop" class="title mt30">
             DRAW! <br />
             MANITTO!
             <div class="mt30">
@@ -116,6 +116,28 @@
         </div>
 
         <button class="modalBtn" @click="closeModal">넵, 확인했습니다.</button>
+      </div>
+    </div>
+    <div v-show="this.secret" class="modal-background">
+      <div class="modal-content">
+        제작 계기 :<br />
+        1. 박혜영언니의 10연말 파티 마니또를 위한 마니또 뽑기 요청. <br />
+        2. 마땅한 결과도출 플랫폼이 부족해서 코딩으로 마니또 뽑아줌 <br />
+        3. 박혜영언니가 이런거없으니까 크리스마스전에 만들면 되겠다함. <br />
+        4. 회사에서 옆자리 동기(홍성아님)한테 만들래? 요청함 <br />
+        5. 동기(홍성아님)(이)가 수락함 6. 진행 <br />
+        <br />
+        제작 참여자: <br />
+        아이디어 제공자 - 박혜영 <br />
+        개발 설계 - 홍성아<br />
+        개발 기획 - 김주예, 홍성아 <br />
+        개발 구현 - 김주예, 홍성아 <br />
+        배포 - 홍성아<br />
+        디자인/퍼블리싱 - 김주예 <br />
+        <br />
+        저희의 첫 토이 프로젝트를 봐 주셔서 감사합니다.<br />
+
+        <button class="modalBtn" @click="secretPop">넵, 확인했습니다.</button>
       </div>
     </div>
   </div>
