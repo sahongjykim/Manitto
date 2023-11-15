@@ -3,13 +3,18 @@
     <div class="base">
       <div class="title mt30">
         {{ playerName }}의 <br />
-        의 마니또는
+        마니또<br />
+        결과보기<br />
+        click!<br />
+        ↓↓↓↓↓
         <div class="mt30">
-          {{ randomEmoji }}
+          {{ emoji }}
+        </div>
+        <div class="mt30">
+          {{ manitoName }}
         </div>
       </div>
       <h1>
-        {{ emoji }} {{ playerName }}의 마니또는 {{ manitoName }}입니다.
         {{ emoji }}
       </h1>
     </div>
