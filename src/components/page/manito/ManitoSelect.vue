@@ -107,7 +107,7 @@
     <div v-if="this.modal" class="modal-background">
       <div class="modal-content">
         <strong style="font-size: 40px">!! 필독 !!</strong><br />
-        <strong style="font-size: 30px">모바일 이용권장</strong>
+        <strong style="font-size: 25px">모바일 이용권장</strong>
         <div style="font-size: 20px; margin-top: 5px">
           마니또 뽑기는 <br />
           모바일에서 이용하는것을 권장드립니다.<br />
