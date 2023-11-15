@@ -1,16 +1,25 @@
 <template>
-  <div class="base">
-    <h1>
-      {{ emoji }} {{ playerName }}의 마니또는 {{ manitoName }}입니다.
-      {{ emoji }}
-    </h1>
+  <div id="contents">
+    <div class="base">
+      <div class="title mt30">
+        {{ playerName }}의 <br />
+        의 마니또는
+        <div class="mt30">
+          {{ randomEmoji }}
+        </div>
+      </div>
+      <h1>
+        {{ emoji }} {{ playerName }}의 마니또는 {{ manitoName }}입니다.
+        {{ emoji }}
+      </h1>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   // props: ["player"],
-  props: ['user', 'result', 'emoji'],
+  props: ["user", "result", "emoji"],
   data() {
     return {
       playerName: "",
@@ -21,7 +30,7 @@ export default {
   mounted() {
     this.playerName = this.user;
     this.manitoName = this.result;
-    this.playerEmoji = this.emoji
+    this.playerEmoji = this.emoji;
   },
   created() {
     // this.loadManitoResult();
@@ -46,7 +55,6 @@ export default {
       // const urlParams = new URLSearchParams(window.location.search);
       // this.playerName = urlParams.get('user');
       // this.manitoName = urlParams.get('result');
-
     },
   },
 };
