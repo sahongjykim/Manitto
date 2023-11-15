@@ -1,7 +1,7 @@
 <template>
   <div id="contents">
     <div class="base">
-      <div class="title mt30">
+      <div class="subTitle mt30">
         "{{ playerName }}"의 <br />
         마니또<br />
         확인<br />

@@ -97,7 +97,14 @@ input, button {
   75% { color: green; }
   100% { color: red; }
 }
-
+.subTitle{
+  text-align: center;
+  font-size: 70px; 
+  font-family: 'DungGeunMo', sans-serif;
+  line-height: 0.9;
+  animation: colorChange 12s infinite;
+  transition: color 2s; /* 부드러운 색상 변화를 위해 */
+}
 .title { 
   text-align: center;
   font-size: 90px; 
