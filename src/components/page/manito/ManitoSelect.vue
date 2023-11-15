@@ -112,7 +112,7 @@
           마니또 뽑기는 <br />
           모바일에서 이용하는것을 권장드립니다.<br />
           데스크탑에서 이용시,
-          <br />URL입력창에서 <br />마니또 정보가노출될 수 있습니다.
+          <br />URL입력창에서 <br />마니또 정보가 노출될 수 있습니다.
         </div>
 
         <button class="modalBtn" @click="closeModal">넵, 확인했습니다.</button>
