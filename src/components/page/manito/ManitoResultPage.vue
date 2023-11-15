@@ -11,8 +11,10 @@
           {{ emoji }}
         </div>
         <div v-show="isShow" class="mt30">
+          당신의<br />
+          마니또는<br />
           "{{ manitoName }}"님<br />
-          입니다!!!
+          입니다!
         </div>
       </div>
       <h1>

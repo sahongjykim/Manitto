@@ -99,11 +99,11 @@ input, button {
 }
 .subTitle{
   text-align: center;
-  font-size: 70px; 
+  font-size: 60px; 
   font-family: 'DungGeunMo', sans-serif;
   line-height: 0.9;
   animation: colorChange 12s infinite;
-  transition: color 2s; /* 부드러운 색상 변화를 위해 */
+  transition: color 1s; /* 부드러운 색상 변화를 위해 */
 }
 .title { 
   text-align: center;
@@ -111,7 +111,7 @@ input, button {
   font-family: 'DungGeunMo', sans-serif;
   line-height: 0.9;
   animation: colorChange 12s infinite;
-  transition: color 3s; /* 부드러운 색상 변화를 위해 */
+  transition: color 2s; /* 부드러운 색상 변화를 위해 */
   span{
     font-size: 57px;
     margin-left: -5px;
