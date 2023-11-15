@@ -2,16 +2,17 @@
   <div id="contents">
     <div class="base">
       <div class="title mt30">
-        {{ playerName }}의 <br />
+        "{{ playerName }}"의 <br />
         마니또<br />
-        결과보기<br />
+        확인<br />
         click!<br />
         ↓↓↓↓↓
-        <div class="mt30">
+        <div v-show="!isShow" @click="resultSt" class="mt30">
           {{ emoji }}
         </div>
-        <div class="mt30">
-          {{ manitoName }}
+        <div v-show="isShow" class="mt30">
+          "{{ manitoName }}"님<br />
+          입니다!!!
         </div>
       </div>
       <h1>
@@ -30,6 +31,7 @@ export default {
       playerName: "",
       manitoName: "",
       playerEmoji: "", // emoji 데이터를 저장할 속성 추가
+      isShow: false,
     };
   },
   mounted() {
@@ -41,6 +43,9 @@ export default {
     // this.loadManitoResult();
   },
   methods: {
+    resultSt() {
+      this.isShow = true;
+    },
     loadManitoResult() {
       // const result = localStorage.getItem("manitoResult");
       // if (result) {
