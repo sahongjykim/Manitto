@@ -17,9 +17,6 @@
           입니다!
         </div>
       </div>
-      <h1>
-        {{ emoji }}
-      </h1>
     </div>
   </div>
 </template>
