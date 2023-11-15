@@ -6,6 +6,7 @@ export default {
   name: "ManitoSelect",
   data() {
     return {
+      secret:false,
       modal:false,
       clickedRows: {},
       inputName: "",
@@ -341,6 +342,16 @@ export default {
     },
     closeModal(){
       this.modal = false;
+    },
+    secretPop(){
+      if(!this.secret){
+        this.secret = true;
+      }else{
+        this.secret = false;
+      }
+    },
+    secretPopX(){
+      this.secret = false;
     },
   },
   computed: {
