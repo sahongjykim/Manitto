@@ -103,15 +103,19 @@
         </div>
       </div>
     </div>
+    <!-- MODAL -->
     <div v-if="this.modal" class="modal-background">
       <div class="modal-content">
-        <strong>모바일에서 권장</strong>
-        <div>
-          마니또 뽑기는 모바일에서 이용하는것을 권장드립니다. 데스크탑에서
-          이용시, url입력창에서 마니또 정보가 공유 될 수 있습니다.
+        <strong style="font-size: 40px">!! 필독 !!</strong><br />
+        <strong style="font-size: 30px">모바일 이용권장</strong>
+        <div style="font-size: 20px; margin-top: 5px">
+          마니또 뽑기는 <br />
+          모바일에서 이용하는것을 권장드립니다.<br />
+          데스크탑에서 이용시,
+          <br />URL입력창에서 <br />마니또 정보가노출될 수 있습니다.
         </div>
 
-        <button @click="closeModal">넵, 확인했습니다.</button>
+        <button class="modalBtn" @click="closeModal">넵, 확인했습니다.</button>
       </div>
     </div>
   </div>
@@ -125,49 +129,5 @@ export default ManitoSelectJs;
 <style scoped>
 input {
   margin-bottom: 10px;
-}
-button {
-  margin-bottom: 20px;
-}
-
-.modal-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 투명도가 있는 검은색 배경 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
-
-.modal-content {
-  width: 270px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  /* 필요한 스타일 추가 */
-}
-
-.brwser {
-  width: 100%;
-  padding: 6px;
-  border: solid 4px black;
-  background-color: #3fff8d;
-  border-radius: 5px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: center;
-}
-.kakao {
-  width: 100%;
-  padding: 6px;
-  border: solid 4px black;
-  background-color: #ffe53f;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
 }
 </style>
